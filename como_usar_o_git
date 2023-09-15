@@ -1,0 +1,83 @@
+adicionar arquivo no repositorio:
+git add .
+
+adicionar nova versão 
+git commit -m "escrever aqui qual alteração foi realizada no arquivo"
+
+subir atualização para o git
+git push 
+
+verificar se houve alterações nos arquivos 
+git status
+
+verificar versões criadas do arquivo 
+git reflog
+
+------------------- IDENTIFICANDO VERSÕES ------------------
+
+como voltar versão anterior
+depois de digitar "git reflog" para verificar versões criadas
+teremos por exmeplo:
+1d832d0 HEAD@{4}: commit (initial): iniciando
+1d832d11 HEAD@{5}: commit (initial): iniciando
+
+pegamos então o valor do id "1d832d0" e usamos para retornar a versão anterior, exemplo:
+    git reset --hard 1d832d0
+
+*OBSERVAÇÃO: SUA PRINCIPAL VERSÃO É: 'ORIGIN/MASTER' OU 'ORIGIN/MAIN'
+
+*AVISO: NUNCA RETORNAR VERSÃO A NÃO SER QUE REALMENTE SEJA NECESSÁRIO!
+
+--------------------------  BRANCHS -----------------------
+Branch -> pode ser como um local ou varios locais para armazenamento do versionamento do seu código
+
+por exemplo branch X, branch Y, branch master (onde temos nosso código em produção)
+
+verificando quais branch temos disponiveis:
+    git branch
+obs: quando executamos este comando teremos um asterisco sobre a branch que estamos trabalhando no momento.
+
+> fazendo alterações na branch X que foi criada:
+1º selecionando a branch X
+    git checkout X
+
+
+------------------------- INSERINDO OU UNIDANDO AS ALTERAÇÕES NA BRANCH -----------------------------------------
+1º ENTRAR NA BRANCH QUE RECEBERA AS ATUALIZAÇÕES     
+AVISO: todas as atualizações realizadas devem ser versionadas antes de retornar a master relizando um commit
+    git checkout master
+
+2º AGORA É SÓ JUNTAR AS MODIFICAÇÕES AO BRANCH PRINCIPAL
+AVISO: antes de realizar atualizações busque todas as atualizações no branch principal usando o 'GIT PULL' que trara todas as atualizações do servidor para nossa maquina
+    git merge X
+3º finalizar com o versionamento da mesma
+    git push
+
+------------------------- COMO CRIAR NOVA FUNCIONALIDADE A PARTIR DO ARQUIVO PRINCIPAL E ENVIAR SEM APROVAÇÃO --------------------------
+1º verificar se estamos com o projeto atualizado 
+    git pull 
+
+2º criar nova branch com nome da funcionalidade que precisamos criar e qual branch estaremos usando como base para criação da mesma neste caso a "master"
+    git checkout -b nova_funcionalidade master
+
+3º estando na branch nova_funcionalidade, verifique se esta mesmo nela usando git branch e faça suas alterações no codigo normalmente
+
+4º depois de criado as funcionadades 1 e 2 no arquivo da nova_funcionalidade, basta versionar usando o commit.
+    git add .
+    git commit -m "adicionado nova versão com a nova_funcionadade"
+
+5º agora depois de testado o código podemos retornar a master 
+    git checkout master
+
+
+------------------------ ALTERAR FUNCIONALIDADES E ENVIANDO PARA APROVAÇÃO -------------------------
+1º Neste caso vamos selecionar a funcionalidade nova_funcionalidade para alterar, para isto vamos novamente selecionar esta branch
+    git checkout nova_funcionalidade
+2º Depois adicionar ao repositorio com git add e versionar com commit:
+    git add .
+    git commit -m "criado funcionalidade 3"
+3º agora enviamos para nuvem a nova atualização utilizando o git push, ainda estando na branch nova_funcionalidade, ou seja, sem retornar a master
+    git push
+AVISO: PODE SER NECESSÁRIO EXECUTAR O COMANDO "git push --set-upstream origin nova_funcionalidade" caso ser necessário aparecera no prompt essa msg.
+
+
